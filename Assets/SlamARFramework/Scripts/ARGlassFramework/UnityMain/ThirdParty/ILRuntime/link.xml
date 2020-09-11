@@ -1,0 +1,7 @@
+﻿<linker>
+  <assembly fullname="UnityEngine" preserve="all"/>
+  <assembly fullname="Assembly-CSharp">
+    <namespace fullname="MyGame.Utils" preserve="all"/>
+    <type fullname="MyGame.SomeClass" preserve="all"/>
+  </assembly>
+</linker>
