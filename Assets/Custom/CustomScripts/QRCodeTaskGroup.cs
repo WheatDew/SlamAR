@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class QRCodeTaskGroup : MonoBehaviour
 {
-    //public float timer = -1;
-    public GameObject[] Children;
+
+    public GameObject Step1, Step2;
     public ExampleBarcodeController exampleBarcodeController;
     public WebCamDecoder webCamDecoder;
     public Transform plane;
@@ -16,18 +16,12 @@ public class QRCodeTaskGroup : MonoBehaviour
     {
         planePosition = plane.position;
         plane.gameObject.SetActive(false);
-
-        foreach(var item in Children)
-        {
-            item.SetActive(false);
-        }
     }
 
     public void SetStart()
     {
         exampleBarcodeController.gameObject.SetActive(true);
         transform.localScale = Vector3.one;
-        Children[0].SetActive(true);
         plane.gameObject.SetActive(true);
         exampleBarcodeController.ReStart();
     }
@@ -36,25 +30,19 @@ public class QRCodeTaskGroup : MonoBehaviour
 
     public void SetSetp1()
     {
-        Children[0].SetActive(true);
-        Children[1].SetActive(false);
+
     }
 
     public void SetStep2()
     {
         plane.position = planePosition;
-        plane.parent = Children[0].transform;
 
-        Children[0].SetActive(false);
-        Children[1].SetActive(true);
+
     }
 
     public void SetTaskSystemGroup()
     {
-        foreach (var item in Children)
-        {
-            item.SetActive(false);
-        }
+
         exampleBarcodeController.StopAllCoroutines();
         webCamDecoder.StopDecoding();
         FindObjectOfType<TaskSystemGroup>().SetStart();

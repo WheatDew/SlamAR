@@ -13,9 +13,9 @@ namespace Unity.Hotfix
     {
         public static void HotfixFuncEnter()
         {
-            LoginGroupEvent();
-            QRCodeTaskGroupEvent();
-            TaskSystemGroupEvent();
+            //LoginGroupEvent();
+            //QRCodeTaskGroupEvent();
+            //TaskSystemGroupEvent();
         }
 
         //任务系统界面

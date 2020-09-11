@@ -297,7 +297,6 @@ public class TaskSystemGroup : MonoBehaviour
 
         photoDisplay.material.mainTexture = t2d;
 
-
     }
 
     public void CameraPreviewButtonConfirm(GameObject obj)

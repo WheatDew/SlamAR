@@ -30,21 +30,16 @@ public class LoginGroup : MonoBehaviour
 
     public void SetQRCodeTaskGroup()
     {
-        FindObjectOfType<QRCodeTaskGroup>().SetStart();
-        transform.localScale = Vector3.zero;
-    }
-
-    public void SetRemoteAssistance()
-    {
-        FindObjectOfType<TaskSystemGroup>().SetRemoteAssistance();
-        transform.localScale = Vector3.zero;
+        Debug.Log("扫一扫按钮");
+        UIController uIController = FindObjectOfType<UIController>();
+        uIController.CreateQRCodeGroup();
+        uIController.DestroyLoginGroup();
     }
 
     public void SetStep2()
     {
         Step1.SetActive(false);
         Step2.SetActive(true);
-        //FindObjectOfType<SocketIOModule>().linkString = inputLinkString.text;
         TestLog.text = "";
     }
 
@@ -52,5 +47,12 @@ public class LoginGroup : MonoBehaviour
     {
         Step1.SetActive(true);
         Step2.SetActive(false);
+    }
+
+    public void RemoteAssistance()
+    {
+        UIController uIController = FindObjectOfType<UIController>();
+        uIController.CreateExpertListGroup();
+        uIController.DestroyLoginGroup();
     }
 }
