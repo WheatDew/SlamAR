@@ -7,10 +7,6 @@ public class QRCodeGroup : MonoBehaviour
     public WebCamDecoder webCamDecoder;
     public ExampleBarcodeController exampleBarcodeController;
 
-    private void Start()
-    {
-        exampleBarcodeController.ReStart();
-    }
 
     private void Update()
     {
@@ -20,5 +16,17 @@ public class QRCodeGroup : MonoBehaviour
             uIController.CreateTaskGroup();
             uIController.DestroyQRCodeGroup();
         }
+
+        if(API_InputSystem_Head.IsHeadKeyDown(SC.InputSystem.InputKeyCode.Back) || Input.GetKeyDown(KeyCode.B))
+        {
+            UIController uIController = FindObjectOfType<UIController>();
+            uIController.CreateLoginGroup();
+            uIController.DestroyQRCodeGroup();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        exampleBarcodeController.StopAllCoroutines();   
     }
 }

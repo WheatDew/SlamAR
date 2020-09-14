@@ -23,7 +23,6 @@ public class QRCodeTaskGroup : MonoBehaviour
         exampleBarcodeController.gameObject.SetActive(true);
         transform.localScale = Vector3.one;
         plane.gameObject.SetActive(true);
-        exampleBarcodeController.ReStart();
     }
 
 

@@ -13,6 +13,7 @@ public class CameraGroup : MonoBehaviour
     private WebCamTexture webCamTexture;
     private byte[] ImageBytes;
     private bool isPreview = true;
+    private Texture2D t2d;
 
     private void Start()
     {
@@ -23,9 +24,7 @@ public class CameraGroup : MonoBehaviour
 
     private void Update()
     {
-        if(!isPreview&&(Input.GetMouseButtonDown(0) 
-        || API_InputSystem_Bluetooth.IsBTKeyDown(SC.InputSystem.InputKeyCode.Enter, API_InputSystem_Bluetooth.BTType.Right)
-        || API_InputSystem_Head.IsHeadKeyDown(SC.InputSystem.InputKeyCode.Enter)))
+        if(!isPreview && API_InputSystem_Head.IsHeadKeyDown(SC.InputSystem.InputKeyCode.Enter))
         {
             CameraPhotographEvent();
             isPreview = true;
@@ -64,7 +63,8 @@ public class CameraGroup : MonoBehaviour
 
     public void SaveImage()
     {
-        Texture2D t2d = new Texture2D(webCamTexture.width, webCamTexture.height, TextureFormat.ARGB32, true);
+        webCamTexture.Play();
+        t2d = new Texture2D(webCamTexture.width, webCamTexture.height, TextureFormat.ARGB32, true);
         t2d.SetPixels(webCamTexture.GetPixels());
         t2d.Apply();
         ImageBytes = t2d.EncodeToJPG();
@@ -106,6 +106,9 @@ public class CameraGroup : MonoBehaviour
 
     private void OnDestroy()
     {
+        webCamTexture.Stop();
+        Destroy(webCamTexture);
+        Destroy(t2d);
         StopAllCoroutines();
     }
 }

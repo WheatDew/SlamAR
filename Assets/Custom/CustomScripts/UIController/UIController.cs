@@ -47,6 +47,13 @@ public class UIController : MonoBehaviour
         Debug.Log("创建扫码界面成功");
     }
 
+    public void DestroyQRCodeGroup()
+    {
+        if (currentQRCodeGroup != null)
+            Destroy(currentQRCodeGroup.gameObject);
+        Debug.Log("删除二维码界面成功");
+    }
+
     public void CreateTaskGroup()
     {
         currentTaskGroup = Instantiate(taskGroup);
@@ -67,36 +74,53 @@ public class UIController : MonoBehaviour
         currentMainGroup = Instantiate(mainGroup);
         Debug.Log("创建任务界面成功");
     }
+    public MainGroup GetCurrentMainGroup()
+    {
+        return currentMainGroup;
+    }
+    public void DestroyMainGroup()
+    {
+        if (currentMainGroup != null)
+            Destroy(currentMainGroup.gameObject);
+    }
+
+
     public void CreateCameraGroup(TextMesh exLog)
     {
+        if(currentCameraGroup!=null)
+        {
+            Destroy(currentCameraGroup.gameObject);
+        }
         currentCameraGroup = Instantiate(cameraGroup);
         currentCameraGroup.exLog = exLog;
     }
-    public CameraGroup GetCurrentCameraGroup()
+    public void DestroyCameraGroup()
     {
-        return currentCameraGroup;
+        if (currentCameraGroup != null)
+            Destroy(currentCameraGroup.gameObject);
     }
 
     public void CreateVideoGroup(TextMesh exLog)
     {
+        if (currentVideoGroup != null)
+        {
+            Destroy(currentVideoGroup.gameObject);
+        }
         currentVideoGroup = Instantiate(videoGroup);
-        currentCameraGroup.exLog = exLog;
+        currentVideoGroup.exLog = exLog;
+    }
+    public void DestroyVideoGroup()
+    {
+        if (currentVideoGroup != null)
+            Destroy(currentVideoGroup.gameObject);
     }
 
     //销毁函数
-
     public void DestroyLoginGroup()
     {
         if(currentLoginGroup!=null)
         Destroy(currentLoginGroup.gameObject);
         Debug.Log("删除登录界面成功");
-    }
-
-    public void DestroyQRCodeGroup()
-    {
-        if(currentQRCodeGroup!=null)
-        Destroy(currentQRCodeGroup.gameObject);
-        Debug.Log("删除二维码界面成功");
     }
 
     public void DestroyTaskGroup()
@@ -111,25 +135,12 @@ public class UIController : MonoBehaviour
         Destroy(currentExpertListGroup.gameObject);
     }
 
-    public void DestroyExperCallGroup()
+    public void DestroyExpertCallGroup()
     {
         if(currentExpertCallGroup!=null)
         Destroy(currentExpertCallGroup.gameObject);
     }
-    public void DestroyMainGroup()
-    {
-        if(currentMainGroup!=null)
-        Destroy(currentMainGroup.gameObject);
-    }
-    public void DestroyCameraGroup()
-    {
-        if(currentCameraGroup!=null)
-        Destroy(currentCameraGroup.gameObject);
-    }
 
-    public void DestroyVideoGroup()
-    {
-        if(currentVideoGroup!=null)
-        Destroy(currentVideoGroup.gameObject);
-    }
+
+
 }

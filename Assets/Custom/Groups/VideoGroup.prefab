@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 2730341576211233259}
   - component: {fileID: 4315469707562123937}
   m_Layer: 0
-  m_Name: cameraPage (1)
+  m_Name: RecorderDirect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3334207777459061343
 Transform:
   m_ObjectHideFlags: 0
@@ -237,7 +237,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraDisplay: {fileID: 6284206116411048990}
-  recordDirect: {fileID: 0}
+  recordDirect: {fileID: 1273966746390576673}
+  exLog: {fileID: 0}
 --- !u!1 &8169697935667312305
 GameObject:
   m_ObjectHideFlags: 0

@@ -301,6 +301,8 @@ MonoBehaviour:
     type: 3}
   cameraGroup: {fileID: 4615168799250449672, guid: 61d58eeeb28c1d1489c827867b1c78e2,
     type: 3}
+  videoGroup: {fileID: 7295445338943032084, guid: 68b642635777bac42bd301a849ac3c91,
+    type: 3}
 --- !u!114 &426619053582147956
 MonoBehaviour:
   m_ObjectHideFlags: 0

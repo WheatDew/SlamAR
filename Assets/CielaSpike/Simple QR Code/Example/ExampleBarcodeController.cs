@@ -19,7 +19,7 @@ public class ExampleBarcodeController : MonoBehaviour
 
     public GameObject displayPlane;
 
-    IEnumerator Start1()
+    IEnumerator Start()
     {
         // get render target;
         plane = displayPlane;
@@ -60,13 +60,10 @@ public class ExampleBarcodeController : MonoBehaviour
             Debug.Log(decoder.Result.Text);
     }
 
-    public void ReStart()
-    {
-        StartCoroutine(Start1());
-    }
 
     private void OnDisable()
     {
+
         if (cameraTexture != null)
         {
             cameraTexture.Stop();

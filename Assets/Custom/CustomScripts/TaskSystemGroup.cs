@@ -151,7 +151,6 @@ public class TaskSystemGroup : MonoBehaviour
         }
 
 
-
         if (!isPreview&&(Input.GetMouseButtonDown(0)|| API_InputSystem_Bluetooth.IsBTKeyDown(SC.InputSystem.InputKeyCode.Enter, API_InputSystem_Bluetooth.BTType.Right)
         || API_InputSystem_Head.IsHeadKeyDown(SC.InputSystem.InputKeyCode.Enter)))
         {

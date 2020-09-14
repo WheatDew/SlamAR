@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class ExpertCallGroup : MonoBehaviour
 {
+
+    
+
     public void CancelCalling()
     {
         UIController uIController = FindObjectOfType<UIController>();
         uIController.CreateExpertListGroup();
-        uIController.DestroyExperCallGroup();
+        uIController.DestroyExpertCallGroup();
     }
 }

@@ -11,6 +11,8 @@ public class MainGroup : MonoBehaviour
         UIController uIController = FindObjectOfType<UIController>();
         uIController.DestroyCameraGroup();
         uIController.DestroyVideoGroup();
+        uIController.DestroyExpertCallGroup();
+        uIController.DestroyExpertListGroup();
     }
 
     public void TurnOnCamera()
@@ -25,6 +27,13 @@ public class MainGroup : MonoBehaviour
         UIController uIController = FindObjectOfType<UIController>();
         uIController.DestroyCameraGroup();
         uIController.CreateVideoGroup(exLog);
+    }
+
+    public void RemoteAssistance()
+    {
+        UIController uIController = FindObjectOfType<UIController>();
+        uIController.CreateExpertListGroup();
+        uIController.DestroyLoginGroup();
     }
 
     private void Update()

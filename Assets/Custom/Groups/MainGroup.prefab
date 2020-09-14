@@ -479,8 +479,8 @@ MonoBehaviour:
   onClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: VideoButton
+      - m_Target: {fileID: -9106093914493282495}
+        m_MethodName: TurnOnVideo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -922,8 +922,8 @@ MonoBehaviour:
   onClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: VideoButton
+      - m_Target: {fileID: -9106093914493282495}
+        m_MethodName: RemoteAssistance
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
