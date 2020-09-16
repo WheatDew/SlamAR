@@ -19,13 +19,17 @@ public class MainGroup : MonoBehaviour
     {
         UIController uIController = FindObjectOfType<UIController>();
         uIController.DestroyVideoGroup();
+        uIController.DestroyExpertListGroup();
+        uIController.DestroyExpertCallGroup();
         uIController.CreateCameraGroup(exLog);
     }
 
     public void TurnOnVideo()
     {
         UIController uIController = FindObjectOfType<UIController>();
-        uIController.DestroyCameraGroup();
+        uIController.DestroyVideoGroup();
+        uIController.DestroyExpertListGroup();
+        uIController.DestroyExpertCallGroup();
         uIController.CreateVideoGroup(exLog);
     }
 
@@ -33,7 +37,8 @@ public class MainGroup : MonoBehaviour
     {
         UIController uIController = FindObjectOfType<UIController>();
         uIController.CreateExpertListGroup();
-        uIController.DestroyLoginGroup();
+        uIController.DestroyCameraGroup();
+        uIController.DestroyVideoGroup();
     }
 
     private void Update()
