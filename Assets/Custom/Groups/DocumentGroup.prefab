@@ -387,6 +387,7 @@ GameObject:
   - component: {fileID: 9152178125509335133}
   - component: {fileID: 6155647760883788043}
   - component: {fileID: 2486170873706779713}
+  - component: {fileID: 5165956437827972335}
   m_Layer: 0
   m_Name: SCButton (4)
   m_TagString: Untagged
@@ -455,6 +456,19 @@ MonoBehaviour:
   onExit:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5165956437827972335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5362205477766389703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ea1b28a10acd0043a656d39245c7b2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AssignalGameobject: {fileID: 7228963060109828308}
 --- !u!1 &6399983060525889268
 GameObject:
   m_ObjectHideFlags: 0

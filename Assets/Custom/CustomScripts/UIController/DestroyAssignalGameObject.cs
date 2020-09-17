@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class DestroyAssignalGameObject : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject AssignalGameobject;
+
     void Start()
     {
-        
+        GetComponent<SCButton>().onClick.AddListener(delegate
+        {
+            Destroy(AssignalGameobject);
+        });
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

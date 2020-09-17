@@ -20,6 +20,7 @@ public class TaskController : MonoBehaviour
 
     private string commandString;
     private int currentTaskDetailedStepIndex = -1;
+    private DocumentGroup documentGroup;
 
     private void Start()
     {
@@ -114,7 +115,7 @@ public class TaskController : MonoBehaviour
             case "播放视频":
                 PlayVideo();
                 currentCommand = delegate {
-                    if (videoPlayer.frame >= (long)videoPlayer.frameCount-1)
+                    if (videoPlayer.frame >= (long)videoPlayer.frameCount-200)
                     {
                         taskList[currentStepIndex][currentTaskDetailedStepIndex].IsCompleted = true;
                         PlayVideoButton.gameObject.SetActive(true);
@@ -125,6 +126,14 @@ public class TaskController : MonoBehaviour
                 break;
             case "查看文档":
                 DisplayDecument();
+                currentCommand = delegate
+                {
+                    if (documentGroup == null)
+                    {
+                        taskList[currentStepIndex][currentTaskDetailedStepIndex].IsCompleted = true;
+                        NextTask();
+                    }
+                };
                 break;
             case "空":
                 currentCommand = delegate { 
@@ -145,7 +154,8 @@ public class TaskController : MonoBehaviour
     public void DisplayDecument()
     {
         UIController uIController = FindObjectOfType<UIController>();
-        uIController.CreateDecumentGroup("ckk.pdf");
+        uIController.CreateDocumentGroup("ckk.pdf");
+        documentGroup = uIController.GetDocumentGroup();
     }
 
     public void VideoButton()

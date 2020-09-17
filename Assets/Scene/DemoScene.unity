@@ -181,7 +181,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa6e48808380b374d81d2d3b78a87466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMesh: {fileID: 0}
 --- !u!4 &308898156
 Transform:
   m_ObjectHideFlags: 0
@@ -347,6 +346,9 @@ MonoBehaviour:
     type: 3}
   videoGroup: {fileID: 7295445338943032084, guid: 68b642635777bac42bd301a849ac3c91,
     type: 3}
+  documentGroup: {fileID: 7464193853635690379, guid: 22ad62467233f6243b3ae8f09d678f09,
+    type: 3}
+  videoPlayerGroup: {fileID: 0}
 --- !u!114 &426619053582147956
 MonoBehaviour:
   m_ObjectHideFlags: 0

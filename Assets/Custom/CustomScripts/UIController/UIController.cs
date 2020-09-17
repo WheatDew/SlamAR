@@ -31,6 +31,9 @@ public class UIController : MonoBehaviour
     [SerializeField] private DocumentGroup documentGroup;
     private DocumentGroup currentDocumentGroup;
 
+    [SerializeField] private VideoPlayerGroup videoPlayerGroup;
+    private VideoPlayerGroup currentVideoPlayerGroup;
+
     private void Start()
     {
         CreateLoginGroup();
@@ -145,13 +148,27 @@ public class UIController : MonoBehaviour
     }
 
     //DecumentGroup
-    public void CreateDecumentGroup(string fileName)
+    public void CreateDocumentGroup(string fileName)
     {
         if (currentDocumentGroup != null)
         {
             Destroy(currentDocumentGroup.gameObject);
         }
         currentDocumentGroup = Instantiate(documentGroup);
+    }
 
+    public DocumentGroup GetDocumentGroup()
+    {
+        return currentDocumentGroup;
+    }
+
+    //VideoPlayerGroup
+    public void CreateVideoPlayerGroup()
+    {
+        if (currentVideoPlayerGroup != null)
+        {
+            Destroy(currentVideoPlayerGroup.gameObject);
+        }
+        currentVideoPlayerGroup = Instantiate(currentVideoPlayerGroup);
     }
 }
