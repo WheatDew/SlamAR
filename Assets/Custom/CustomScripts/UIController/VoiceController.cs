@@ -57,6 +57,24 @@ public class VoiceController : MonoBehaviour
         text.text = result.Substring(0,result.Length-1);
     }
 
+    public void InputFacilityInfo(TextMesh text)
+    {
+        this.text = text;
+        开始语音识别();
+    }
+
+    public void InputErrorInfo(TextMesh text)
+    {
+        this.text = text;
+        开始语音识别();
+    }
+
+    public void InputServiceResult(TextMesh text)
+    {
+        this.text = text;
+        开始语音识别();
+    }
+
     //public void 语音评测结果(string result)
     //{
     //    text.text += "-语音评测结果:\n" + result;

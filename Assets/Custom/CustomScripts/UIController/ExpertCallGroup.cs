@@ -13,4 +13,10 @@ public class ExpertCallGroup : MonoBehaviour
         uIController.CreateExpertListGroup();
         uIController.DestroyExpertCallGroup();
     }
+
+    private void OnEnable()
+    {
+        SocketIOModule socketIOModule = FindObjectOfType<SocketIOModule>();
+        socketIOModule.EndCall();
+    }
 }

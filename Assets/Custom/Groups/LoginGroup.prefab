@@ -76150,6 +76150,8 @@ MonoBehaviour:
   Step2: {fileID: 7177778712011291892}
   TestLog: {fileID: 2114188640395826519}
   inputLinkString: {fileID: 3298221477926049477}
+  username: {fileID: 3298221477926049477}
+  password: {fileID: 334994210570975262}
 --- !u!1 &7935485557661863521
 GameObject:
   m_ObjectHideFlags: 0

@@ -530,11 +530,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1551880666036737631}
   m_LocalRotation: {x: 0, y: 0.70710677, z: -0.70710677, w: 0}
-  m_LocalPosition: {x: -0, y: 0, z: -0.014}
+  m_LocalPosition: {x: 0, y: 0, z: -0.014}
   m_LocalScale: {x: 0.029, y: 0.075, z: 0.0075}
   m_Children: []
   m_Father: {fileID: 2594353447825380510}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -270, y: -90, z: 90}
 --- !u!33 &8964364057388298448
 MeshFilter:
@@ -1119,9 +1119,9 @@ Transform:
   m_LocalPosition: {x: -0.6707, y: -0.196, z: 1.7434}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.4}
   m_Children:
+  - {fileID: 7303633107686630339}
   - {fileID: 5378679650557491321}
   - {fileID: 5378679651788252254}
-  - {fileID: 7303633107686630339}
   m_Father: {fileID: 3488466451538296359}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: -25, z: 0}
@@ -2685,7 +2685,7 @@ Transform:
   m_LocalScale: {x: 0.3, y: 0.08, z: 0.2}
   m_Children: []
   m_Father: {fileID: 2594353447825380510}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &5378679650557491319
 MeshFilter:
@@ -2779,7 +2779,7 @@ Transform:
   m_LocalScale: {x: 0.0041753957, y: 0.0047851866, z: 0.004985547}
   m_Children: []
   m_Father: {fileID: 2594353447825380510}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &5378679651788252252
 MeshRenderer:
@@ -3080,12 +3080,10 @@ MonoBehaviour:
   currentStepDescribe4: {fileID: 4727972497648638764}
   currentStepDescribe5: {fileID: 6014611879544570020}
   NextStepButton: {fileID: 2594353447825380507}
-  PlayVideoButton: {fileID: 1736831697361205441}
+  NextStepButtonMeshRenderer: {fileID: 1040185770233554487}
+  SubmitMaterial: {fileID: 2100000, guid: 4e94055fe5052214999df2cbe0f48416, type: 2}
   currentStepIndex: -1
-  videoMaterial: {fileID: 2100000, guid: 4b3ea56775dda224c9c2104ab98fe322, type: 2}
-  originalMaterial: {fileID: 2100000, guid: 35b4a0d48c63eb84ea6cd43cd264fd98, type: 2}
-  videoPlayer: {fileID: 320318826269261843}
-  screen: {fileID: 2923047879807530166}
+  exLog: {fileID: 6598033455187839214}
 --- !u!1 &6344386291093975386
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,18 +10,20 @@ public class TaskController : MonoBehaviour
     public List<List<TaskInfo>> taskList = new List<List<TaskInfo>>();
     public TextMesh currentStep, currentStepDescribe1, currentStepDescribe2, currentStepDescribe3, currentStepDescribe4, currentStepDescribe5;
     //public GameObject Tick1, Tick2, Tick3, Tick4, Tick5;
-    public SCButton NextStepButton,PlayVideoButton;
+    public SCButton NextStepButton;
+    public MeshRenderer NextStepButtonMeshRenderer;
+    public Material SubmitMaterial;
     public UnityAction currentCommand;
     public int currentStepIndex=-1;
-    public Material videoMaterial;
-    public Material originalMaterial;
-    public VideoPlayer videoPlayer;
-    public MeshRenderer screen;
+    public TextMesh exLog;
 
     private string commandString;
     private int currentTaskDetailedStepIndex = -1;
     private DocumentGroup documentGroup;
-
+    private VideoPlayerGroup videoPlayerGroup;
+    private CameraGroup cameraGroup;
+    private VideoGroup videoGroup;
+    private InputInfoGroup inputInfoGroup;
     private void Start()
     {
         //测试
@@ -35,24 +37,24 @@ public class TaskController : MonoBehaviour
         step2.Add(new TaskInfo("查看文档","查看设备参数文档"));
         step2.Add(new TaskInfo("熟悉规范操作事项"));
 
-        List<string> step3 = new List<string>();
-        step3.Add("拍照");
-        step3.Add("对检修设备进行拍照");
-        step3.Add("对故障处进行拍照");
-        List<string> step4 = new List<string>();
-        step4.Add("录像");
-        step4.Add("对设备进行翻转录像");
-        step4.Add("对检修过程进行录像");
-        List<string> step5 = new List<string>();
-        step5.Add("录入信息");
-        step5.Add("录入设备信息");
-        step5.Add("录入故障信息");
-        step5.Add("录入检修结果");
+        List<TaskInfo> step3 = new List<TaskInfo>();
+        step3.Add(new TaskInfo("拍照"));
+        step3.Add(new TaskInfo("拍摄照片","对检修设备进行拍照"));
+        step3.Add(new TaskInfo("对故障处进行拍照"));
+        List<TaskInfo> step4 = new List<TaskInfo>();
+        step4.Add(new TaskInfo("录像"));
+        step4.Add(new TaskInfo("录制影像","对设备进行翻转录像"));
+        step4.Add(new TaskInfo("对检修过程进行录像"));
+        List<TaskInfo> step5 = new List<TaskInfo>();
+        step5.Add(new TaskInfo("录入信息"));
+        step5.Add(new TaskInfo("提交任务","录入设备信息"));
+        step5.Add(new TaskInfo("录入信息","录入故障信息"));
+        step5.Add(new TaskInfo("录入检修结果"));
         taskList.Add(step1);
         taskList.Add(step2);
-        //taskList.Add(step3);
-        //taskList.Add(step4);
-        //taskList.Add(step5);
+        taskList.Add(step3);
+        taskList.Add(step4);
+        taskList.Add(step5);
         NextStep();
     }
 
@@ -64,11 +66,13 @@ public class TaskController : MonoBehaviour
 
     public void NextStep()
     {
+        UIController uIController = FindObjectOfType<UIController>();
         currentCommand = delegate { };
         NextStepButton.gameObject.SetActive(false);
         currentStepIndex++;
         if (currentStepIndex >= taskList.Count)
         {
+            uIController.ClearConflictedGroup();
             currentStep.text = "";
             currentStepDescribe1.text = "";
             currentStepDescribe2.text = "";
@@ -99,12 +103,15 @@ public class TaskController : MonoBehaviour
 
     public void NextTask()
     {
+        
         currentTaskDetailedStepIndex++;
         if (currentTaskDetailedStepIndex >= taskList[currentStepIndex].Count)
         {
             currentCommand = delegate { };
             NextStepButton.gameObject.SetActive(true);
+            return;
         }
+        SwitchTask(ref currentCommand, taskList[currentStepIndex][currentTaskDetailedStepIndex]);
 
     }
 
@@ -114,13 +121,10 @@ public class TaskController : MonoBehaviour
         {
             case "播放视频":
                 PlayVideo();
-                currentCommand = delegate {
-                    if (videoPlayer.frame >= (long)videoPlayer.frameCount-200)
-                    {
-                        taskList[currentStepIndex][currentTaskDetailedStepIndex].IsCompleted = true;
-                        PlayVideoButton.gameObject.SetActive(true);
-                        NextTask();
-                    }
+                currentCommand = delegate
+                {
+                    taskList[currentStepIndex][currentTaskDetailedStepIndex].IsCompleted = true;
+                    NextTask();
                 };
                 Debug.Log("播放视频" + taskInfo.Command.Substring(4, 8));
                 break;
@@ -128,14 +132,42 @@ public class TaskController : MonoBehaviour
                 DisplayDecument();
                 currentCommand = delegate
                 {
-                    if (documentGroup == null)
-                    {
-                        taskList[currentStepIndex][currentTaskDetailedStepIndex].IsCompleted = true;
-                        NextTask();
-                    }
+                    taskList[currentStepIndex][currentTaskDetailedStepIndex].IsCompleted = true;
+                    NextTask();
                 };
                 break;
-            case "空":
+            case "拍摄照片":
+                Photograph();
+                currentCommand = delegate
+                {
+                    taskList[currentStepIndex][currentTaskDetailedStepIndex].IsCompleted = true;
+                    NextTask();
+                };
+                break;
+            case "录制影像":
+                Recording();
+                currentCommand = delegate
+                {
+                    taskList[currentStepIndex][currentTaskDetailedStepIndex].IsCompleted = true;
+                    NextTask();
+                };
+                break;
+            case "录入信息":
+                InputInfo();
+                currentCommand = delegate
+                {
+                    taskList[currentStepIndex][currentTaskDetailedStepIndex].IsCompleted = true;
+                    NextTask();
+                };
+                break;
+            case "提交任务":
+                NextStepButtonMeshRenderer.material = SubmitMaterial;
+                currentCommand = delegate {
+                    taskList[currentStepIndex][currentTaskDetailedStepIndex].IsCompleted = true;
+                    NextTask();
+                };
+                break;
+            case "空白指令":
                 currentCommand = delegate { 
                     taskList[currentStepIndex][currentTaskDetailedStepIndex].IsCompleted = true;
                     NextTask();
@@ -146,33 +178,40 @@ public class TaskController : MonoBehaviour
 
     public void PlayVideo()
     {
-        PlayVideoButton.gameObject.SetActive(true);
-        PlayVideoButton.onClick.RemoveAllListeners();
-        PlayVideoButton.onClick.AddListener(VideoButton);
+        UIController uIController = FindObjectOfType<UIController>();
+        uIController.CreateVideoPlayerGroup();
+        videoPlayerGroup = uIController.GetVideoPlayerGroup();
     }
 
     public void DisplayDecument()
     {
         UIController uIController = FindObjectOfType<UIController>();
-        uIController.CreateDocumentGroup("ckk.pdf");
+        //if (exLog == null)
+        //    Debug.LogError("空");
+        uIController.CreateDocumentGroup("ckk.pdf",exLog);
         documentGroup = uIController.GetDocumentGroup();
     }
 
-    public void VideoButton()
+    public void Photograph()
     {
-        TextMesh buttonText = PlayVideoButton.transform.GetChild(1).GetComponent<TextMesh>();
-        if (buttonText.text == "播    放")
-        {
-            screen.material = videoMaterial;
-            videoPlayer.Play();
-            buttonText.text = "停    止";
-        }
-        else
-        {
-            screen.material = originalMaterial;
-            videoPlayer.Stop();
-            buttonText.text = "播    放";
-        }
+        UIController uIController = FindObjectOfType<UIController>();
+        uIController.CreateCameraGroup(exLog);
+        Debug.Log("创建拍摄照片页面");
+        cameraGroup = uIController.GetCameraGroup();
+    }
+
+    public void Recording()
+    {
+        UIController uIController = FindObjectOfType<UIController>();
+        uIController.CreateVideoGroup(exLog);
+        videoGroup = uIController.GetVideoGroup();
+    }
+
+    public void InputInfo()
+    {
+        UIController uIController = FindObjectOfType<UIController>();
+        uIController.CreateInputInfoGroup();
+        inputInfoGroup = uIController.GetInputInfoGroup();
     }
 }
 
@@ -183,7 +222,7 @@ public class TaskInfo
     public bool IsCompleted;
     public TaskInfo(string describe)
     {
-        Command = "空";
+        Command = "空白指令";
         Describe = describe;
         IsCompleted=false;
     }

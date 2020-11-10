@@ -9,6 +9,9 @@ public class DocumentGroup : MonoBehaviour
     public int m_Page = 0;
     public GameObject link;
     string downloadFileName = "";
+    public string assignFileName;
+    public TextMesh exLog;
+    public PDFReader pdfReader;
 
     private void Start()
     {
@@ -33,7 +36,8 @@ public class DocumentGroup : MonoBehaviour
 #if UNITY_EDITOR
         downloadFileName = Path.Combine(Application.dataPath, "ckk.pdf");
 #elif UNITY_ANDROID
-        downloadFileName = Path.Combine(Application.persistentDataPath, contentName);
+        downloadFileName = Path.Combine(Application.persistentDataPath, "ckk.pdf");
+        //exLog.text= Path.Combine(Application.persistentDataPath, "ckk.pdf");
 #endif
 
         PDFDocument pdfDocument = new PDFDocument(downloadFileName);

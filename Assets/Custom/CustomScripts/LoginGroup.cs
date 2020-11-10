@@ -7,6 +7,10 @@ public class LoginGroup : MonoBehaviour
     public GameObject Step1, Step2;
     public TextMesh TestLog;
     public TextMesh inputLinkString;
+    public TextMesh username;
+    public TextMesh password;
+
+    private SocketIOModule socketIOModule;
 
     private void Start()
     {
@@ -38,9 +42,16 @@ public class LoginGroup : MonoBehaviour
 
     public void SetStep2()
     {
-        Step1.SetActive(false);
-        Step2.SetActive(true);
-        TestLog.text = "";
+        if(username.text=="test")
+        {
+            Step1.SetActive(false);
+            Step2.SetActive(true);
+            TestLog.text = "";
+            return;
+        }
+        socketIOModule = FindObjectOfType<SocketIOModule>();
+        socketIOModule.TestSend();
+        StartCoroutine(Login());
     }
 
     public void ResetStep()
@@ -54,5 +65,18 @@ public class LoginGroup : MonoBehaviour
         UIController uIController = FindObjectOfType<UIController>();
         uIController.CreateExpertListGroup();
         uIController.DestroyLoginGroup();
+    }
+
+    public IEnumerator Login()
+    {
+        yield return new WaitForSeconds(0.5f) ;
+        if (socketIOModule.token!="")
+        {
+            socketIOModule.SetInputIP("192.168.1.118");
+            socketIOModule.StartSocket();
+            Step1.SetActive(false);
+            Step2.SetActive(true);
+            TestLog.text = "";
+        }
     }
 }

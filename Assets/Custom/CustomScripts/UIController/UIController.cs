@@ -34,6 +34,9 @@ public class UIController : MonoBehaviour
     [SerializeField] private VideoPlayerGroup videoPlayerGroup;
     private VideoPlayerGroup currentVideoPlayerGroup;
 
+    [SerializeField] private InputInfoGroup inputInfoGroup;
+    private InputInfoGroup currentInputInfoGroup;
+
     private void Start()
     {
         CreateLoginGroup();
@@ -68,6 +71,27 @@ public class UIController : MonoBehaviour
     public void CreateExpertListGroup()
     {
         currentExpertListGroup = Instantiate(expertListGroup);
+        ExpertListController expertListController = FindObjectOfType<ExpertListController>();
+        foreach (var item in this.GetExpertListGroup().expertItems)
+        {
+            item.gameObject.SetActive(false);
+        }
+        for (int i = 0; i < expertListController.experts.Count; i++)
+        {
+            this.GetExpertListGroup().expertItems[i].StatusText.text = expertListController.experts[i].status;
+            this.GetExpertListGroup().expertItems[i].gameObject.SetActive(true);
+        }
+
+    }
+
+    public ExpertListGroup GetExpertListGroup()
+    {
+        return currentExpertListGroup;
+    }
+    public void DestroyExpertCallGroup()
+    {
+        if (currentExpertCallGroup != null)
+            Destroy(currentExpertCallGroup.gameObject);
     }
 
     public void CreateExpertCallGroup()
@@ -93,12 +117,13 @@ public class UIController : MonoBehaviour
 
     public void CreateCameraGroup(TextMesh exLog)
     {
-        if(currentCameraGroup!=null)
-        {
-            Destroy(currentCameraGroup.gameObject);
-        }
+        ClearConflictedGroup();
         currentCameraGroup = Instantiate(cameraGroup);
         currentCameraGroup.exLog = exLog;
+    }
+    public CameraGroup GetCameraGroup()
+    {
+        return currentCameraGroup;
     }
     public void DestroyCameraGroup()
     {
@@ -108,12 +133,13 @@ public class UIController : MonoBehaviour
 
     public void CreateVideoGroup(TextMesh exLog)
     {
-        if (currentVideoGroup != null)
-        {
-            Destroy(currentVideoGroup.gameObject);
-        }
+        ClearConflictedGroup();
         currentVideoGroup = Instantiate(videoGroup);
         currentVideoGroup.exLog = exLog;
+    }
+    public VideoGroup GetVideoGroup()
+    {
+        return currentVideoGroup;
     }
     public void DestroyVideoGroup()
     {
@@ -141,19 +167,19 @@ public class UIController : MonoBehaviour
         Destroy(currentExpertListGroup.gameObject);
     }
 
-    public void DestroyExpertCallGroup()
-    {
-        if(currentExpertCallGroup!=null)
-        Destroy(currentExpertCallGroup.gameObject);
-    }
+
 
     //DecumentGroup
+    public void CreateDocumentGroup(string fileName,TextMesh exLog)
+    {
+        ClearConflictedGroup();
+        currentDocumentGroup = Instantiate(documentGroup);
+        currentDocumentGroup.exLog = exLog;
+    }
+
     public void CreateDocumentGroup(string fileName)
     {
-        if (currentDocumentGroup != null)
-        {
-            Destroy(currentDocumentGroup.gameObject);
-        }
+        ClearConflictedGroup();
         currentDocumentGroup = Instantiate(documentGroup);
     }
 
@@ -165,10 +191,48 @@ public class UIController : MonoBehaviour
     //VideoPlayerGroup
     public void CreateVideoPlayerGroup()
     {
+        ClearConflictedGroup();
+        currentVideoPlayerGroup = Instantiate(videoPlayerGroup);
+    }
+
+    public VideoPlayerGroup GetVideoPlayerGroup()
+    {
+        return currentVideoPlayerGroup;
+    }
+
+    //InputInfoGroup
+    public void CreateInputInfoGroup()
+    {
+        ClearConflictedGroup();
+        currentInputInfoGroup = Instantiate(inputInfoGroup);
+    }
+
+    public InputInfoGroup GetInputInfoGroup()
+    {
+        return currentInputInfoGroup;
+    }
+
+    public void ClearConflictedGroup()
+    {
+        if (currentCameraGroup != null)
+        {
+            Destroy(currentCameraGroup.gameObject);
+        }
+        if (currentVideoGroup != null)
+        {
+            Destroy(currentVideoGroup.gameObject);
+        }
+        if (currentDocumentGroup != null)
+        {
+            Destroy(currentDocumentGroup.gameObject);
+        }
         if (currentVideoPlayerGroup != null)
         {
             Destroy(currentVideoPlayerGroup.gameObject);
         }
-        currentVideoPlayerGroup = Instantiate(currentVideoPlayerGroup);
+        if (currentInputInfoGroup != null)
+        {
+            Destroy(currentInputInfoGroup.gameObject);
+        }
     }
 }
